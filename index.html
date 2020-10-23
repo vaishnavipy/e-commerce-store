@@ -28,6 +28,7 @@
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: cover;
+                position: relative;
               
                 
             }
@@ -120,6 +121,7 @@
                 position: absolute;
                 top:-27;
                 right:-20;
+                cursor: pointer;
             }
             #items_in_cart{
                 font-family: 'Roboto', sans-serif;
@@ -173,7 +175,26 @@
                 width:80vw;
                 margin: auto;
                 text-align: center;
+                position: relative;
+                z-index: 2;
             }
+         /*   #homepage{
+                position: relative;
+            }
+
+            #homepage::after{
+                content: "";
+                position: absolute;
+                z-index: 3;
+                background:rgba(0,0,0,0.5);
+               
+               top:0;
+               bottom: 0;
+               right: 0;
+               left: 0;
+
+            } */
+
          #featured h1{
              color:#102A42;
              font-family: 'Roboto', sans-serif;
@@ -249,6 +270,7 @@
              position: relative;
              margin: 0;
              padding: 0;
+             cursor: pointer;
             
          }
 
@@ -262,6 +284,7 @@
              top:40%;
              cursor: pointer;
              transition: background-color 1s;
+            
              
          }
          .icon:hover{
@@ -274,7 +297,80 @@
          .buy_now{
             left:50%;
          }
+         .hideIcon{
+             visibility: hidden;
+         }
+         .showIcon{
+             visibility: visible;
+         }
 
+         #side_menu{
+             position: absolute;
+            background-color: #F1F5F8;
+            width:350px;
+            z-index: 4;
+            top:0;
+            right:0;
+           
+            height: 100%;
+            overflow: hidden;
+           text-align: center;
+
+
+         }
+         #close{
+             padding: 15px;
+             color:#617D98;
+             font-size: 2rem;
+             cursor: pointer;
+             display: inline;
+             float: left;
+
+         }
+         #side_menu h2{
+             clear: both;
+            text-align: center;
+            font-family: 'Kaushan Script', cursive;
+            font-size: 25px;
+            color:#102A42;
+            letter-spacing: 1px;
+         }
+         #sidemenu_bottom{
+            position: absolute;
+             bottom:70;
+             width:70%;
+             left:15%;
+             font-family: 'Kaushan Script', cursive;
+             font-size: 30px;
+            letter-spacing: 2px;
+         }
+
+         #checkout{
+             background-color: #BA5D2C;
+             border-radius: 10px;
+             padding: 10px;
+             color:white;
+            margin: 10px;
+             border:none;
+            width: 100%;
+             letter-spacing: 2px;
+             cursor: pointer;
+             display: block;
+             transition: color 1s,background-color 1s;
+
+         }
+         #total{
+            font-family: 'Kaushan Script', cursive;
+             font-size: 30px;
+
+         }
+
+         #checkout:hover{
+             color:#324D67;
+             background-color: lightsalmon;
+           
+
+         }
         </style>
         
     
@@ -283,7 +379,7 @@
 
 
     <body>
-       
+       <div id="homepage">
             <div id="homescreen">
                 <div id="container">
                     <div id="topbar">
@@ -316,7 +412,20 @@
                     </div>  
                 </div>
 
+                <div id="side_menu">
+                    <div id="close"><i class="fa fa-times"></i></div>
+                    <h2>Your Bag</h2>
+                    
+                    <div id="your_bag"></div>
+                    <div id="sidemenu_bottom">Total:$ <span id="total"> 0.00</span>
+                    <button id="checkout">CHECKOUT</button> </div>
+
+                </div>
+
             </div>
+
+
+           
             <div id="featured">
                 <h1><span style="color: orange;">/ </span> Featured</h1>
 
@@ -343,16 +452,16 @@
 
                 </div>
                 <button id="all_products_btn">ALL PRODUCTS</button>
-
+                
             </div>
 
-
+            </div>
 
 
         <script>
 
             window.onload = function(){
-                let section;
+                let section;  let child_elms;   let productImage ;
 
                 const featured_grid = document.getElementById("featured_grid")
 
@@ -370,24 +479,82 @@
 
                     const {name,price} = e.fields;
                     const {url} = e.fields.image[0]
-
-                    console.log(name,price,url)
-
+                  
+                   let formatted_price = String(price).split("");
+                   console.log(formatted_price)
+                   formatted_price.splice(formatted_price.length-2,0,".")
+                   console.log(formatted_price.join(""))
+                    
                     return ` <div class="product">
                        <div class="product_img_container"> 
                            <img class="image"  src=${url}>
-                            <div class="quick_look icon"><i class="fa fa-search"></i></div>
-                            <div class="buy_now icon"><i class="fa fa-shopping-cart"></i></div>
+                            <div class="quick_look icon hideIcon"><i class="fa fa-search"></i></div>
+                            <div class="buy_now icon hideIcon"><i class="fa fa-shopping-cart"></i></div>
                         </div>
                         <h4 class="product_title">${name.toUpperCase()}</h4>
-                        <h4 class="price">$${price}</h4>
+                        <h4 class="price">$${formatted_price.join("")}</h4>
                     </div>`
 
                    }).join("")
                    featured_grid.innerHTML = section
-                   console.log(section)
+                   
+                   productImage = document.querySelectorAll(".product_img_container");
+                  
+                   productImage.forEach(elm => elm.addEventListener("mouseover",showIcon))
+
+                   productImage.forEach(elm => elm.addEventListener("mouseout",hideIcon))
+              
 
                 })
+
+               // console.log(featured_grid.innerHTML)
+
+
+                
+
+            
+                console.log(productImage)
+              
+                function showIcon(){
+                    console.log("mouseOver")
+                    child_elms =   this.children;
+
+                    console.log(child_elms);
+
+                    for(var i=0; i< child_elms.length;i++){
+
+                        if(i==1 || i==2){
+
+                            child_elms[i].classList.remove("hideIcon");
+                            child_elms[i].classList.add("showIcon")
+
+                        }
+
+                    }
+                    
+                }
+
+                function hideIcon(){
+                    console.log("mouseOut")
+                    child_elms =   this.children;
+
+                    console.log(child_elms);
+
+                    for(var i=0; i< child_elms.length;i++){
+
+                        if(i==1 || i==2){
+
+                            child_elms[i].classList.remove("showIcon");
+                            child_elms[i].classList.add("hideIcon")
+
+                        }
+
+                    }
+                    
+                }
+
+                
+
 
 
 
