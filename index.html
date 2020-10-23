@@ -10,12 +10,170 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <!--  <link rel="stylesheet" href="reviews.css"> 
        <script src="reviews.js"></script>  --> 
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
         <script src="https://use.fontawesome.com/031e3862f6.js"></script>
 
         <style>
+            body{
+                padding: 0;
+                margin: 0;
+            }
+           
+
+            #homescreen{
+                background-image: url("https://vanilla-js-store.netlify.app/images/main-bcg.jpeg");
+                width:100vw;
+                height: 100vh;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+              
+                
+            }
+
+            #homescreen::after{
+                content: "";
+                position: absolute;
+                z-index: 1;
+                background:rgba(0,0,0,0.5);
+               
+                top:0;
+                bottom: 0;
+                right: 0;
+                left: 0;
+
+            }
+            #container{
+                width:80vw;
+                margin: auto;
+                color:white;
+                position: relative;
+                z-index: 2;
+               
+
+            }
+
+            #topbar{
+              
+              
+                text-align: center;
+               display: flex;
+               justify-content: center;
+            
+               
+            }
+
+            #navbar{
+              align-self: center;
+               flex:33%;
+               
+             
+            }
 
 
+            .links{
+              
+                text-decoration: none;
+                cursor: pointer;
+                color:white;
+                font-size: 22px;
+                padding: 10px;
+                font-family: 'Roboto', sans-serif;
+                letter-spacing: 2px;
+                transition: color 1s;
+            }
+
+            .links:hover{
+                color:orange;
+            }
+            #logo{
+                padding: 0;
+                margin: 0;
+                flex:33%;
+                
+                display: inline-block;
+               
+                
+            }
+            #cart_container{
+                align-self: center;
+                flex:33%;
+                float: right;
+                display: inline;
+              
+               position: relative;
+
+            }
+            #cart{
+                position: absolute;
+                top:-10;
+                right:-10;
+                color:white;
+                font-size: 2rem;
+            }
+            #items_in_cart_div{
+                background-color: #BA5D2C;
+                color:white;
+                border-radius: 50%;
+                padding: 5px 8px;
+                position: absolute;
+                top:-27;
+                right:-20;
+            }
+            #items_in_cart{
+                font-family: 'Roboto', sans-serif;
+
+            }
+            #content{
+                display: grid;
+               grid-template-columns: 100%;
+               align-content: center;
+              grid-row-gap: 0;
+               height: 80%;
+
+            }
+           
+            #content h1{
+                font-family: 'Kaushan Script', cursive;
+                font-size: 7vw;
+                padding: 0;
+                margin: 0;
+                color:white;
+                align-content: center;
+               
+             
+            }
+
+            #content p{
+                color:white;
+                font-family: 'Roboto', sans-serif;
+                font-size: 3.5vw;
+                padding: 0;
+               
+                margin: 0;
+            }
+            #shop{
+                background: rgba(0,0,0,0);
+               
+                color:white;
+                border:1px solid white;
+                padding: 10px;
+                border-radius: 10px;
+                font-size: 17px;
+                margin-top: 15px;
+                cursor: pointer;
+                transition: background-color 1s;
+            }
+            #shop:hover{
+                background-color: white;
+                color:orange;
+            }
+            #featured{
+                width:80vw;
+                margin: auto;
+                text-align: center;
+            }
          
 
         </style>
@@ -27,6 +185,47 @@
 
     <body>
        
+            <div id="homescreen">
+                <div id="container">
+                    <div id="topbar">
+
+                        <div id="navbar"> 
+                            <a href="#" class="links">Home</a>
+    
+                            <a href="#" class="links">Products</a>
+    
+                            <a href="#" class="links">About</a>
+    
+    
+                        </div>
+
+                         <div id="logo"> <img  src="https://vanilla-js-store.netlify.app/images/logo-white.svg"></div>
+
+                        <div id="cart_container">
+                            <span id="cart"><i class="fa fa-shopping-cart"></i></span>
+                            <div id="items_in_cart_div" ><span id="items_in_cart">1</span></div>
+                        </div>
+
+                    </div>
+                    <div id="content">
+
+                    <h1>Rest, Relax, Unwind</h1>
+
+                    <p>Embrace your choices - we do</p>
+                    
+                  <div>  <button id="shop">SHOP NOW</button></div>
+                    </div>  
+                </div>
+
+            </div>
+            <div id="featured">
+                <h1><span style="background-color: orange;">/</span></h1>
+
+
+
+            </div>
+
+
 
 
         <script>
