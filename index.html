@@ -6,7 +6,7 @@
     <head>
     
     
-        <title>SideBar JavaScript</title>
+        <title>Home | Comfy Store JavaScript</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <!--  <link rel="stylesheet" href="reviews.css"> 
        <script src="reviews.js"></script>  --> 
@@ -473,7 +473,7 @@
         <script>
 
             window.onload = function(){
-                let section;  let child_elms;   let productImage ;
+                let section;  let child_elms;   let productImage ; let quick_look; let product_clikced;
 
                 const featured_grid = document.getElementById("featured_grid");
 
@@ -516,6 +516,10 @@
                    productImage.forEach(elm => elm.addEventListener("mouseover",showIcon))
 
                    productImage.forEach(elm => elm.addEventListener("mouseout",hideIcon))
+
+                   quick_look = document.querySelectorAll(".quick_look");
+
+                   quick_look.forEach(elm => elm.addEventListener("click",goToProductPage))
               
 
                 })
@@ -600,9 +604,18 @@
 
                 }
 
+                function goToProductPage(){
+
+                   product_clikced = this.parentElement.nextElementSibling.textContent
+
+                   localStorage.setItem("product_clicked",product_clikced.toLowerCase());
+
+                   location.assign("./product.html")
 
 
+                }
 
+                
 
             } 
 
