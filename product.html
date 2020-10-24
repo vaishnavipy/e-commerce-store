@@ -17,7 +17,245 @@
         <style>
           body{
               background-color: #FFFFFF;
+              padding: 0;
+              margin: 0;
           }
+
+          #main_container{
+              position: relative;
+          }
+          #header_container{
+              width:80vw;
+              margin: auto;
+          }
+          #header{
+              
+             
+              text-align: center;
+             display: flex;
+             justify-content: center;
+             padding: 10px 0px;
+          
+             
+          }
+
+          #navbar{
+            align-self: center;
+             flex:33%;
+             text-align: left;
+           
+          }
+
+
+          .links{
+            
+              text-decoration: none;
+              cursor: pointer;
+              color:#102A42;
+              font-size: 22px;
+              padding: 10px;
+              font-family: 'Roboto', sans-serif;
+              letter-spacing: 2px;
+              transition: color 1s;
+          }
+
+          .links:hover{
+              color:#BA5D2C;
+          }
+          #logo{
+              padding: 0;
+              margin: 0;
+              flex:33%;
+              
+              display: inline-block;
+             
+              
+          }
+          #cart_container{
+              align-self: center;
+              flex:33%;
+              float: right;
+              display: inline;
+            
+             position: relative;
+             cursor: pointer;
+
+          }
+          #cart{
+              position: absolute;
+              top:-10;
+              right:-10;
+              color:#102A42;
+              font-size: 2rem;
+          }
+          #items_in_cart_div{
+              background-color: #BA5D2C;
+              color:white;
+              border-radius: 50%;
+              padding: 5px 8px;
+              position: absolute;
+              top:-27;
+              right:-20;
+              cursor: pointer;
+          }
+          #items_in_cart{
+              font-family: 'Roboto', sans-serif;
+
+          }
+          .page_title{
+              background-color: #F1F5F8;
+              width:100vw;
+              color:#617D98;
+              padding: 50px 0px;
+             
+          }
+          .page_title h1{
+              width:80vw;
+              margin: auto;
+              font-family: 'Roboto', sans-serif;
+                letter-spacing: 2px;
+                text-align: left;
+              }
+              #single_product_grid{
+                  display: grid;
+                  justify-content: center;
+                  padding: 50px 0px;
+                  grid-template-columns: 40% 40%;
+                  grid-column-gap: 40px;
+              }
+              .image_grid{
+                  background-color: blue;
+              }
+              .image{
+                  border-radius: 10px;
+                  object-fit: cover;
+                  width:100%;
+                  height: auto;
+              }
+              .product_title{
+                  color:#102A42;
+                  letter-spacing: 2px;
+                  font-family: 'Roboto', sans-serif;
+                  font-size: 40px;
+                  margin: 0;
+                  font-weight: 300;
+
+              }
+              .company{
+                font-family: 'Kaushan Script', cursive;
+                color:#BCCCDB;
+                letter-spacing: 2px;
+
+              }
+              .price{
+                color:#102A42;
+                letter-spacing: 2px;
+                font-size: 20px;
+                font-family: 'Roboto', sans-serif;
+                }
+                .color{
+                    width: 18px;
+                    height: 18px;
+                    border-radius: 50%;
+                    background-color: chocolate;
+                    display: inline-block;
+                    margin-right: 5px;
+                }
+                #add_to_cart{
+                    background-color: #BA5D2C;
+                    color:white;
+                    border:none;
+                    padding: 10px;
+                    border-radius: 10px;
+                    cursor: pointer;
+                }
+                #add_to_cart:hover{
+                background-color:lightsalmon;
+                color:#102A42;
+            }
+                .product_desc{
+                    color:hsl(209, 22%, 49%);
+                    margin: 15px 0px;
+                    font-family: 'Roboto', sans-serif;
+                    letter-spacing: 1px;
+                    width:70%;
+                    line-height: 22px;
+                }
+                #side_menu{
+             position: fixed;
+            background-color: #F1F5F8;
+            width:350px;
+            z-index: 4;
+            top:0;
+            right:0;
+           
+            height: 100vh;
+            overflow: hidden;
+           text-align: center;
+           overflow: hidden;
+            transition: transform 1s;
+
+         }
+         .hide_sidemenu{
+            transform: translateX(100%);
+         }
+         .show_sidemenu{
+             transform: translateX(0);
+         }
+         #close{
+             padding: 15px;
+             color:#617D98;
+             font-size: 2rem;
+             cursor: pointer;
+             display: inline;
+             float: left;
+
+         }
+         #side_menu h2{
+             clear: both;
+            text-align: center;
+            font-family: 'Kaushan Script', cursive;
+            font-size: 25px;
+            color:#102A42;
+            letter-spacing: 1px;
+         }
+         #sidemenu_bottom{
+            position: fixed; 
+             top:80vh;
+             width:70%;
+             left:15%; 
+             
+             font-family: 'Kaushan Script', cursive;
+             font-size: 30px;
+            letter-spacing: 2px;
+         }
+
+         #checkout{
+             background-color: #BA5D2C;
+             border-radius: 10px;
+             padding: 10px;
+             color:white;
+            margin: 10px;
+             border:none;
+            width: 100%;
+             letter-spacing: 2px;
+             cursor: pointer;
+             display: block;
+             transition: color 1s,background-color 1s;
+
+         }
+         #total{
+            font-family: 'Kaushan Script', cursive;
+             font-size: 30px;
+
+         }
+
+         #checkout:hover{
+             color:#324D67;
+             background-color: lightsalmon;
+           
+
+         }
         </style>
         
     
@@ -26,10 +264,109 @@
 
 
     <body>
+        <div id="main_container">
+        <div id="header_container">
+            <div id="header">
+
+                <div id="navbar"> 
+                    <a href="#" class="links">Home</a>
+
+                    <a href="#" class="links">Products</a>
+
+                    <a href="#" class="links">About</a>
+
+
+                </div>
+
+                 <div id="logo"> <img  src="https://vanilla-js-store.netlify.app/images/logo-black.svg"></div>
+
+                <div id="cart_container">
+                    <span id="cart"><i class="fa fa-shopping-cart"></i></span>
+                    <div id="items_in_cart_div" ><span id="items_in_cart">1</span></div>
+                </div>
+
+            </div> 
+            
+        </div>
+        <div class="page_title">
+
+            <h1>Home/ <span id="breadcrumb">High-Back Bench</span></h1>
+
+
+        </div>
+
+        <div id="single_product_grid">
+
+            <div class="single_image_grid" ><img class="image" src="https://dl.airtable.com/.attachmentThumbnails/d86e13eec1b200e2b21282b99a9382be/6d92321b"></div>    
+            <div class="product_desc_grid">
+                <h1 class="product_title">High-Back Bench</h1> 
+                <h3 class="company">BY IKEA</h3>
+                <h3 class="price">$9.99</h3>
+                <div class="color"> </div> <div class="color"> </div>
+                <div class="product_desc">Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge
+
+                </div>    
+                <button id="add_to_cart">ADD TO CART</button>   
+            </div> 
+
+
+        </div> 
+
+        <div id="side_menu" class="hide_sidemenu">
+            <div id="close"><i class="fa fa-times"></i></div>
+            <h2>Your Bag</h2>
+            
+            <div id="your_bag"></div>
+            <div id="sidemenu_bottom">Total:$ <span id="total"> 0.00</span>
+            <button id="checkout">CHECKOUT</button> </div>
+
+        </div>
+
       
 
-
+        </div>  
         <script>
+            window.onload = function(){
+
+
+                                    const cart_button = document.getElementById("cart_container");
+
+                    const sideMenu = document.getElementById("side_menu")
+
+                    const close_sidemenu =document.getElementById("close")
+
+                    const homepage = document.getElementById("homepage")
+
+                    cart_button.onclick = function(){
+
+                    
+
+                        sideMenu.classList.remove("hide_sidemenu")
+
+                        sideMenu.classList.add("show_sidemenu");
+
+                        homepage.classList.add("homepage")
+
+
+                        
+
+                    }
+
+                    close_sidemenu.onclick = function(){
+
+                        sideMenu.classList.remove("show_sidemenu")
+
+                        sideMenu.classList.add("hide_sidemenu")
+
+                        homepage.classList.remove("homepage")
+
+
+                    }
+
+
+
+
+            }
 
           
 

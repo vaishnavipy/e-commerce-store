@@ -391,7 +391,8 @@
        <div id="homepage">
             <div id="homescreen">
                 <div id="container">
-                    <div id="header">
+                  
+                 <div id="header">
 
                         <div id="navbar"> 
                             <a href="#" class="links">Home</a>
@@ -410,7 +411,7 @@
                             <div id="items_in_cart_div" ><span id="items_in_cart">1</span></div>
                         </div>
 
-                    </div>
+                    </div> 
                     <div id="content">
 
                     <h1>Rest, Relax, Unwind</h1>
@@ -474,7 +475,8 @@
             window.onload = function(){
                 let section;  let child_elms;   let productImage ;
 
-                const featured_grid = document.getElementById("featured_grid")
+                const featured_grid = document.getElementById("featured_grid");
+
 
                 fetch("https://course-api.netlify.app/api/javascript-store-products")
                 .then(response => response.json())
