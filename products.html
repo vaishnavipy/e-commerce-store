@@ -6,7 +6,7 @@
     <head>
     
     
-        <title>SideBar JavaScript</title>
+        <title>Products | Comfy JavaScript</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <!--  <link rel="stylesheet" href="reviews.css"> 
        <script src="reviews.js"></script>  --> 
@@ -289,7 +289,7 @@
                     <h4>Company</h4>
                     <h5 class="filter_option">All</h5>
                     <h5 class="filter_option">Ikea</h5>
-                    <h5 class="filter_option">Macros</h5>
+                    <h5 class="filter_option">Marcos</h5>
                     <h5 class="filter_option">Caressa</h5>
                     <h5 class="filter_option">Liddy</h5>
                 </div>
@@ -338,15 +338,35 @@
             window.onload = function(){
                 let product_section; let formatted_price; let product_img_container; let icons; 
 
-                let product_clicked;
+                let product_clicked; let company_filter ="All";
 
-                const all_products_grid = document.getElementById("all_products_grid")
+                const all_products_grid = document.getElementById("all_products_grid");
+
+                const filter_option = document.querySelectorAll(".filter_option");
+
+
+                function fetchProducts(){
 
                 fetch("https://course-api.netlify.app/api/javascript-store-products")
                 .then(response => response.json())
                 .then(data => {
 
-                     product_section = data.map(function(elm,index){
+
+                        //Filter out based on company
+
+                        product_section  =  data.filter(function(elm,index){
+
+                            const {company} = elm.fields;
+
+                                        if(company_filter == "All"){
+
+                                        return company == "ikea" || company == "marcos" || company == "caressa" || company == "liddy";
+                                    }
+
+                                        else {  return company == company_filter.toLowerCase() }
+                                        
+
+                                    }).map(function(elm,index){
 
                             const{url} = elm.fields.image[0];
 
@@ -387,6 +407,24 @@
 
 
                 })
+
+            }
+
+                 fetchProducts();
+
+
+                filter_option.forEach(elm => elm.addEventListener("click",fetchFilteredProducts))
+
+                function fetchFilteredProducts(){
+
+                    company_filter = this.textContent;
+
+                    console.log(company_filter)
+
+                    fetchProducts();
+
+                }
+
 
                 function goToProductPage(){
 

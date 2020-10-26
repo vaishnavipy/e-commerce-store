@@ -476,7 +476,7 @@
                 let section;  let child_elms;   let productImage ; let quick_look; let product_clikced;
 
                 const featured_grid = document.getElementById("featured_grid");
-
+                const all_products_btn = document.getElementById("all_products_btn");
 
                 fetch("https://course-api.netlify.app/api/javascript-store-products")
                 .then(response => response.json())
@@ -613,6 +613,11 @@
                    location.assign("./product.html")
 
 
+                }
+                all_products_btn.onclick = function(){
+
+
+                    location.assign("./products.html")
                 }
 
                 
