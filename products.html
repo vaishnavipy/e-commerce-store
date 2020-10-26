@@ -1,0 +1,146 @@
+
+
+
+<html>
+
+    <head>
+    
+    
+        <title>SideBar JavaScript</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!--  <link rel="stylesheet" href="reviews.css"> 
+       <script src="reviews.js"></script>  --> 
+       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+        <script src="https://use.fontawesome.com/031e3862f6.js"></script>
+
+        <style>
+            body{
+                background-color: #FFFFFF;
+                padding: 0;
+                margin: 0;
+            }
+            #header_container{
+              width:80vw;
+              margin: auto;
+          }
+          #header{
+              
+             
+              text-align: center;
+             display: flex;
+             justify-content: center;
+             padding: 10px 0px;
+          
+             
+          }
+
+          #navbar{
+            align-self: center;
+             flex:33%;
+             text-align: left;
+           
+          }
+
+
+          .links{
+            
+              text-decoration: none;
+              cursor: pointer;
+              color:#102A42;
+              font-size: 22px;
+              padding: 10px;
+              font-family: 'Roboto', sans-serif;
+              letter-spacing: 2px;
+              transition: color 1s;
+          }
+
+          .links:hover{
+              color:#BA5D2C;
+          }
+          #logo{
+              padding: 0;
+              margin: 0;
+              flex:33%;
+              
+              display: inline-block;
+             
+              
+          }
+          #cart_container{
+              align-self: center;
+              flex:33%;
+              float: right;
+              display: inline;
+            
+             position: relative;
+             cursor: pointer;
+
+          }
+          #cart{
+              position: absolute;
+              top:-10;
+              right:-10;
+              color:#102A42;
+              font-size: 2rem;
+          }
+          #items_in_cart_div{
+              background-color: #BA5D2C;
+              color:white;
+              border-radius: 50%;
+              padding: 5px 8px;
+              position: absolute;
+              top:-27;
+              right:-20;
+              cursor: pointer;
+          }
+          #items_in_cart{
+              font-family: 'Roboto', sans-serif;
+
+          }
+        
+        </style>
+        
+    
+        
+    </head>
+
+
+    <body>
+        <div id="header_container">
+            <div id="header">
+
+                <div id="navbar"> 
+                    <a href="#" class="links">Home</a>
+
+                    <a href="#" class="links">Products</a>
+
+                    <a href="#" class="links">About</a>
+
+
+                </div>
+
+                 <div id="logo"> <img  src="https://vanilla-js-store.netlify.app/images/logo-black.svg"></div>
+
+                <div id="cart_container">
+                    <span id="cart"><i class="fa fa-shopping-cart"></i></span>
+                    <div id="items_in_cart_div" ><span id="items_in_cart">1</span></div>
+                </div>
+
+            </div> 
+            
+        </div>
+       
+        
+        <script>
+           
+          
+
+           
+        </script>
+        
+   
+    </body>
+
+
+</html>
