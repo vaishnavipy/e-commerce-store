@@ -227,9 +227,14 @@
 
             }
             .filter_option{
+                display: block;
+                border:none;
                 cursor: pointer;
                 padding-left: 10px;
                 color:#617D98;
+                margin:10px;
+                font-size: 15px;
+                background-color:  #FFFFFF;;
                 font-family: 'Roboto', sans-serif;
                 letter-spacing: 2px;
             }
@@ -287,16 +292,16 @@
                 <div> <input type="text" id="search" placeholder="Search...">  </div>
                 <div id="company"> 
                     <h4>Company</h4>
-                    <h5 class="filter_option">All</h5>
-                    <h5 class="filter_option">Ikea</h5>
-                    <h5 class="filter_option">Marcos</h5>
-                    <h5 class="filter_option">Caressa</h5>
-                    <h5 class="filter_option">Liddy</h5>
+                    <button class="filter_option">All</button>
+                    <button class="filter_option">Ikea</button>
+                    <button class="filter_option">Marcos</button>
+                    <button class="filter_option">Caressa</button>
+                    <button class="filter_option">Liddy</button>
                 </div>
                
                 <h4>Price</h4>
                 <input type="range" min="0" max="80" value="80" id="slider">
-                <p>Value: $ <span id="slider_value"></span></p>
+                <p>Value: $ <span id="slider_value">80</span></p>
 
 
                
@@ -338,33 +343,46 @@
             window.onload = function(){
                 let product_section; let formatted_price; let product_img_container; let icons; 
 
-                let product_clicked; let company_filter ="All";
+                let product_clicked; let company_filter ="All";  let user_search ="" ; let user_search_length; let slider_value;
 
                 const all_products_grid = document.getElementById("all_products_grid");
 
                 const filter_option = document.querySelectorAll(".filter_option");
 
+                const search_elm = document.getElementById("search");
 
+                search_elm.addEventListener("input",onUserSearch);
+
+                //Filter out based on company, fetch them from API and then populate DOM
                 function fetchProducts(){
-
+                    console.log("fetch")
+                    console.log(user_search)
                 fetch("https://course-api.netlify.app/api/javascript-store-products")
                 .then(response => response.json())
                 .then(data => {
 
 
-                        //Filter out based on company
+                            
 
                         product_section  =  data.filter(function(elm,index){
 
-                            const {company} = elm.fields;
+                                    const {company,name} = elm.fields;
 
-                                        if(company_filter == "All"){
+                                    if(user_search != "" ){
+                                    console.log("user_search filter")
+                                    user_search_length = user_search.length;
+
+                                    return name.slice(0,user_search_length) == user_search
+                                                
+                                    }
+                                        
+
+                                   if(company_filter == "All"){
 
                                         return company == "ikea" || company == "marcos" || company == "caressa" || company == "liddy";
-                                    }
-
-                                        else {  return company == company_filter.toLowerCase() }
-                                        
+                                    } else {  return company == company_filter.toLowerCase() }
+                                    
+                                   
 
                                     }).map(function(elm,index){
 
@@ -391,7 +409,12 @@
 
                         }).join("");
 
+                       
+
                         all_products_grid.innerHTML = product_section;
+
+                        search_elm.value="";
+                        
 
                         product_img_container = document.querySelectorAll(".product_img_container");
 
@@ -409,23 +432,21 @@
                 })
 
             }
-
+            
                  fetchProducts();
 
 
+                 // User Chooses a Company Filter
                 filter_option.forEach(elm => elm.addEventListener("click",fetchFilteredProducts))
 
                 function fetchFilteredProducts(){
 
                     company_filter = this.textContent;
-
-                    console.log(company_filter)
-
-                    fetchProducts();
+                     fetchProducts();
 
                 }
 
-
+                // When a product is clicked On , go to product detail page
                 function goToProductPage(){
 
 
@@ -436,17 +457,10 @@
 
                     location.assign("./product.html")
                     
-
-
-
-
-
-
                 }
 
-
+                // On hover show Quick Look and Add to cart
                 function showIcon(){
-
 
                     icons = this.children;
 
@@ -466,6 +480,7 @@
 
                 }
 
+                 // On mouse out hide Quick Look and Add to cart
                 function hideIcon(){
                         icons = this.children;
 
@@ -485,6 +500,40 @@
 
                         }
 
+                //When user searches for a product
+
+                function onUserSearch(){
+
+                    user_search = this.value;
+                    console.log(user_search)
+                    fetchProducts();
+                   
+
+
+                }
+
+                //When price changes on slider
+
+                const slider = document.getElementById("slider")
+
+                slider.addEventListener("input",sliderChange);
+
+                let slider_value_elm = document.getElementById("slider_value");
+
+
+
+                function sliderChange(){
+
+
+                    slider_value_elm.innerHTML = this.value;
+                    slider_value = this.value;
+
+
+
+                }
+
+
+                
 
 
 

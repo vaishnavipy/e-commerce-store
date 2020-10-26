@@ -8,8 +8,8 @@
     
         <title>Home | Comfy Store JavaScript</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <!--  <link rel="stylesheet" href="reviews.css"> 
-       <script src="reviews.js"></script>  --> 
+   <!--  <link rel="stylesheet" href="reviews.css">   --> 
+       <script src="index.js"></script> 
        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
        <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
         <script src="https://use.fontawesome.com/031e3862f6.js"></script>
@@ -380,6 +380,71 @@
            
 
          }
+         #your_bag{
+             padding: 5px;
+             display: flex;
+             flex-direction: column;
+             row-gap: 20px;
+
+         }
+         .your_bag_container{
+            display: grid;
+             grid-template-columns: 30% 55% 10%;
+             text-align: left;
+             grid-column-gap: 5px;
+             grid-row-gap: 20px;
+
+         }
+         .cart_details{
+             padding-left: 10px;
+         }
+         .cart_image{
+             border-radius: 5px;
+             width: 100%;
+            object-fit: cover;
+            height:10vh
+         }
+         .cart_product_name{
+            color:#324D67;
+            letter-spacing: 1px;
+            padding: 0;
+            margin: 0;
+         }
+         .cart_product_price{
+            color:#617D98;
+            padding: 0;
+            margin: 0;
+            margin-bottom: 10px;
+            margin-top: 3px;
+         }
+         .remove{
+            color:#617D98;
+            border:none;
+           background-color: #F1F5F8;
+           padding: 0;
+            margin: 0;
+            cursor: pointer;
+            outline: none;
+         }
+         .quantity_container{
+             display: flex;
+             flex-direction: column;
+             align-content: center;
+         }
+         .up_arrow,.down_arrow{
+             color:#BA5D2C;
+             font-weight: 300;
+             cursor: pointer;
+             font-size: 1.5rem;
+            border:none;
+            background-color: #F1F5F8;
+             align-self: center;
+
+         }
+         .quantity{
+            align-self: center; 
+         }
+
         </style>
         
     
@@ -461,7 +526,24 @@
                 <div id="close"><i class="fa fa-times"></i></div>
                 <h2>Your Bag</h2>
                 
-                <div id="your_bag"></div>
+                <div id="your_bag">
+                  <!--   <div class="your_bag_container">
+                  <img class="cart_image" src="https://dl.airtable.com/.attachments/f3450755e165557344f7d6433242431e/93533098/product-1.jpeg">
+                    
+                    <div class="cart_details">
+                        <h3 class="cart_product_name">Utopia Sofa</h3>
+                        <h4 class="cart_product_price">$9.99</h4>
+                        <button class="remove">remove</button>
+                    </div>
+                    <div class="quantity_container">
+                        <button class="up_arrow"><i class="fa fa-angle-up"></i></button>
+                        <span class="quantity">1</span>
+                        <button class="down_arrow"><i class="fa fa-angle-down"></i></button>
+                    </div> 
+
+                   </div>-->
+
+                </div>
                 <div id="sidemenu_bottom">Total:$ <span id="total"> 0.00</span>
                 <button id="checkout">CHECKOUT</button> </div>
 
@@ -470,162 +552,6 @@
             </div>
 
 
-        <script>
-
-            window.onload = function(){
-                let section;  let child_elms;   let productImage ; let quick_look; let product_clikced;
-
-                const featured_grid = document.getElementById("featured_grid");
-                const all_products_btn = document.getElementById("all_products_btn");
-
-                fetch("https://course-api.netlify.app/api/javascript-store-products")
-                .then(response => response.json())
-                .then(data => {
-
-                 section = data.filter(function(elm,index){
-                        const {featured} = elm.fields
-
-                        return featured;
-
-
-                   }).map(function(e,i){
-
-                    const {name,price} = e.fields;
-                    const {url} = e.fields.image[0]
-                  
-                   let formatted_price = String(price).split("");
-                   console.log(formatted_price)
-                   formatted_price.splice(formatted_price.length-2,0,".")
-                   console.log(formatted_price.join(""))
-                    
-                    return ` <div class="product">
-                       <div class="product_img_container"> 
-                           <img class="image"  src=${url}>
-                            <div class="quick_look icon hideIcon"><i class="fa fa-search"></i></div>
-                            <div class="buy_now icon hideIcon"><i class="fa fa-shopping-cart"></i></div>
-                        </div>
-                        <h4 class="product_title">${name.toUpperCase()}</h4>
-                        <h4 class="price">$${formatted_price.join("")}</h4>
-                    </div>`
-
-                   }).join("")
-                   featured_grid.innerHTML = section
-                   
-                   productImage = document.querySelectorAll(".product_img_container");
-                  
-                   productImage.forEach(elm => elm.addEventListener("mouseover",showIcon))
-
-                   productImage.forEach(elm => elm.addEventListener("mouseout",hideIcon))
-
-                   quick_look = document.querySelectorAll(".quick_look");
-
-                   quick_look.forEach(elm => elm.addEventListener("click",goToProductPage))
-              
-
-                })
-
-               // console.log(featured_grid.innerHTML)
-
-
-                
-
-            
-                console.log(productImage)
-              
-                function showIcon(){
-                    console.log("mouseOver")
-                    child_elms =   this.children;
-
-                    console.log(child_elms);
-
-                    for(var i=0; i< child_elms.length;i++){
-
-                        if(i==1 || i==2){
-
-                            child_elms[i].classList.remove("hideIcon");
-                            child_elms[i].classList.add("showIcon")
-
-                        }
-
-                    }
-                    
-                }
-
-                function hideIcon(){
-                    console.log("mouseOut")
-                    child_elms =   this.children;
-
-                    console.log(child_elms);
-
-                    for(var i=0; i< child_elms.length;i++){
-
-                        if(i==1 || i==2){
-
-                            child_elms[i].classList.remove("showIcon");
-                            child_elms[i].classList.add("hideIcon")
-
-                        }
-
-                    }
-                    
-                }
-
-                const cart_button = document.getElementById("cart_container");
-
-                const sideMenu = document.getElementById("side_menu")
-
-                const close_sidemenu =document.getElementById("close")
-
-                const homepage = document.getElementById("homepage")
-
-                cart_button.onclick = function(){
-
-                  
-
-                    sideMenu.classList.remove("hide_sidemenu")
-
-                    sideMenu.classList.add("show_sidemenu");
-
-                    homepage.classList.add("homepage")
-
-
-                    
-
-                }
-
-                close_sidemenu.onclick = function(){
-
-                    sideMenu.classList.remove("show_sidemenu")
-
-                    sideMenu.classList.add("hide_sidemenu")
-
-                    homepage.classList.remove("homepage")
-
-
-                }
-
-                function goToProductPage(){
-
-                   product_clikced = this.parentElement.nextElementSibling.textContent
-
-                   localStorage.setItem("product_clicked",product_clikced.toLowerCase());
-
-                   location.assign("./product.html")
-
-
-                }
-                all_products_btn.onclick = function(){
-
-
-                    location.assign("./products.html")
-                }
-
-                
-
-            } 
-
-           
-        </script>
         
    
     </body>
