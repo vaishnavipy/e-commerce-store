@@ -98,7 +98,151 @@
               font-family: 'Roboto', sans-serif;
 
           }
+          .page_title{
+              background-color: #F1F5F8;
+              width:100vw;
+              color:#617D98;
+              padding: 50px 0px;
+             
+          }
+          .page_title h1{
+              width:80vw;
+              margin: auto;
+              font-family: 'Roboto', sans-serif;
+                letter-spacing: 2px;
+                text-align: left;
+              }
+            #products_flex_container{
+                width: 80vw;
+                margin: auto;
+                display: flex;
+                padding: 50px 0px;
+            }
+            #filter{
+                flex:20%;
+              
+            }
+
+            #all_products_flex{
+                flex:80%;
+
+            }
         
+            #all_products_grid{
+                
+                display: grid;
+                grid-template-columns: 33% 33% 33%;
+                grid-column-gap: 20px;
+                grid-row-gap: 20px;
+               
+            }
+            .product{
+                text-align: center;
+            }
+            .product_img_container{
+                position: relative;
+                cursor: pointer;
+
+            }
+            .icon{
+                position: absolute;
+                border-radius: 50%;
+                padding: 10px;
+                background-color: #BA5D2C;
+                top:40%;
+                left:30%;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+
+                }
+                .quick_look{
+                 left:30%;
+                    }
+                    .buy_now{
+                        left:50%;
+                    }
+                 .icon:hover{
+                background-color: lightsalmon;
+
+                 }
+                 .hideIcon{
+             visibility: hidden;
+                }
+            .showIcon{
+             visibility: visible;
+                 }
+
+             .image{
+                border-radius: 10px;
+                object-fit:cover;
+                width: 95%;
+                height: 10vw;
+                
+             
+
+            }
+            .product_name{
+                color:#617D98;
+                font-family: 'Roboto', sans-serif;
+                margin: 0;
+                padding: 8px;
+
+            }
+            .product_price{
+                color:#324D67;
+                font-family: 'Roboto', sans-serif;
+                margin: 0;
+                padding: 0;
+                font-weight: 900;
+            }
+            #search{
+                background-color: #F1F5F8;
+                padding: 10px;
+                border-radius: 5px;
+                border:none;
+                font-family: 'Roboto', sans-serif;
+                letter-spacing: 2px;
+                margin-bottom: 20px;
+
+            }
+            #filter h4{
+                color:#102A42;
+                font-family: 'Roboto', sans-serif;
+                letter-spacing: 2px;
+                padding:  0px;
+                margin:0px;
+
+
+            }
+            #filter p{
+                color:#617D98;
+                font-family: 'Roboto', sans-serif;
+                letter-spacing: 2px;
+               
+                letter-spacing: 0;
+                padding: 5px;
+                margin: 0;
+
+
+            }
+            .filter_option{
+                cursor: pointer;
+                padding-left: 10px;
+                color:#617D98;
+                font-family: 'Roboto', sans-serif;
+                letter-spacing: 2px;
+            }
+            .filter_option:hover{
+                color:#324D67;
+            }
+            #slider{
+               
+                margin: 8px 0px;
+                cursor: pointer;
+            }
+
+
         </style>
         
     
@@ -111,9 +255,9 @@
             <div id="header">
 
                 <div id="navbar"> 
-                    <a href="#" class="links">Home</a>
+                    <a href="./index.html" class="links">Home</a>
 
-                    <a href="#" class="links">Products</a>
+                    <a href="./products.html" class="links">Products</a>
 
                     <a href="#" class="links">About</a>
 
@@ -130,12 +274,185 @@
             </div> 
             
         </div>
+        <div class="page_title">
+
+            <h1>Home/ <span id="breadcrumb">High-Back Bench</span></h1>
+
+
+        </div>
+
+        <div id="products_flex_container">
+
+            <div id="filter">
+                <div> <input type="text" id="search" placeholder="Search...">  </div>
+                <div id="company"> 
+                    <h4>Company</h4>
+                    <h5 class="filter_option">All</h5>
+                    <h5 class="filter_option">Ikea</h5>
+                    <h5 class="filter_option">Macros</h5>
+                    <h5 class="filter_option">Caressa</h5>
+                    <h5 class="filter_option">Liddy</h5>
+                </div>
+               
+                <h4>Price</h4>
+                <input type="range" min="0" max="80" value="80" id="slider">
+                <p>Value: $ <span id="slider_value"></span></p>
+
+
+               
+
+            </div>
+
+            <div id="all_products_flex">
+                
+            <div id="all_products_grid">
+               
+               
+
+             <!--     <div class="product">
+                <div class="product_img_container">  
+                    <img class="image" src="https://dl.airtable.com/.attachmentThumbnails/d86e13eec1b200e2b21282b99a9382be/6d92321b">
+                    <div class="quick_look icon hideIcon"><i class="fa fa-search"></i></div>
+                    <div class="buy_now icon hideIcon"><i class="fa fa-shopping-cart"></i></div>
+                
+                </div>
+                    <p class="product_name">High-Back Bench</p>
+
+                    <p class="product_price">$9.99</p>
+
+                </div>
+
+             -->
+
+            </div>
+
+            </div>
+
+
+        </div>
+        
        
         
         <script>
-           
-          
 
+            window.onload = function(){
+                let product_section; let formatted_price; let product_img_container; let icons; 
+
+                let product_clicked;
+
+                const all_products_grid = document.getElementById("all_products_grid")
+
+                fetch("https://course-api.netlify.app/api/javascript-store-products")
+                .then(response => response.json())
+                .then(data => {
+
+                     product_section = data.map(function(elm,index){
+
+                            const{url} = elm.fields.image[0];
+
+                            const {price,name} = elm.fields;
+
+                            formatted_price = String(price).split("");
+
+                            formatted_price.splice(formatted_price.length-2,0,".");
+
+                            return `  <div class="product">
+                                <div class="product_img_container">  
+                                    <img class="image" src=${url}>
+                                    <div class="quick_look icon hideIcon"><i class="fa fa-search"></i></div>
+                                    <div class="buy_now icon hideIcon"><i class="fa fa-shopping-cart"></i></div>
+                                
+                                </div>
+                                    <p class="product_name">${name.toUpperCase()}</p>
+
+                                    <p class="product_price">$ ${formatted_price.join("")}</p>
+
+                                </div>`
+
+                        }).join("");
+
+                        all_products_grid.innerHTML = product_section;
+
+                        product_img_container = document.querySelectorAll(".product_img_container");
+
+                        product_img_container.forEach(elm=>elm.addEventListener("mouseover",showIcon))
+
+                        product_img_container.forEach(elm=>elm.addEventListener("mouseout",hideIcon))
+
+                        quick_look = document.querySelectorAll(".quick_look");
+
+                   quick_look.forEach(elm => elm.addEventListener("click",goToProductPage))
+
+
+
+
+                })
+
+                function goToProductPage(){
+
+
+                    product_clicked = this.parentElement.nextElementSibling.textContent;
+                    console.log(product_clicked)
+
+                    localStorage.setItem("product_clicked",product_clicked.toLowerCase());
+
+                    location.assign("./product.html")
+                    
+
+
+
+
+
+
+                }
+
+
+                function showIcon(){
+
+
+                    icons = this.children;
+
+                    [...icons].forEach(function(elm,index){
+
+                        if(index == 1 || index ==2){
+
+                            elm.classList.remove("hideIcon")
+                            elm.classList.add("showIcon")
+
+
+                        }
+
+
+                    })
+
+
+                }
+
+                function hideIcon(){
+                        icons = this.children;
+
+                        [...icons].forEach(function(elm,index){
+
+                            if(index == 1 || index ==2){
+
+                                elm.classList.remove("showIcon")
+                                elm.classList.add("hideIcon")
+
+
+                            }
+
+
+                        })
+
+
+                        }
+
+
+
+
+
+            }
+           
            
         </script>
         
