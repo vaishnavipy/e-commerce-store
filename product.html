@@ -8,7 +8,7 @@
     
         <title>SideBar JavaScript</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <!--  <link rel="stylesheet" href="reviews.css"> 
+       <!--   <link rel="stylesheet" href="index.css"> 
        <script src="reviews.js"></script>  --> 
        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
        <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
@@ -193,6 +193,8 @@
                     width:70%;
                     line-height: 22px;
                 }
+
+        /* Side Menu Styling */
                 #side_menu{
              position: fixed;
             background-color: #F1F5F8;
@@ -268,6 +270,72 @@
            
 
          }
+         /* Your Shopping Bag Styling */
+         #your_bag{
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+
+        }
+        .your_bag_container{
+        display: grid;
+        grid-template-columns: 30% 55% 10%;
+        text-align: left;
+        grid-column-gap: 5px;
+        grid-row-gap: 20px;
+
+        }
+        .cart_details{
+        padding-left: 10px;
+        }
+        .cart_image{
+        border-radius: 5px;
+        width: 100%;
+        object-fit: cover;
+        height:10vh
+        }
+        .cart_product_name{
+        color:#324D67;
+        letter-spacing: 1px;
+        padding: 0;
+        margin: 0;
+        }
+        .cart_product_price{
+        color:#617D98;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 10px;
+        margin-top: 3px;
+        }
+        .remove{
+        color:#617D98;
+        border:none;
+        background-color: #F1F5F8;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        outline: none;
+        }
+        .quantity_container{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        }
+        .up_arrow,.down_arrow{
+        color:#BA5D2C;
+        font-weight: 300;
+        cursor: pointer;
+        font-size: 1.5rem;
+        border:none;
+        background-color: #F1F5F8;
+        align-self: center;
+
+        }
+        .quantity{
+        align-self: center; 
+        }
+
         </style>
         
     
@@ -328,7 +396,9 @@
             <div id="close"><i class="fa fa-times"></i></div>
             <h2>Your Bag</h2>
             
-            <div id="your_bag"></div>
+            <div id="your_bag">
+
+            </div>
             <div id="sidemenu_bottom">Total:$ <span id="total"> 0.00</span>
             <button id="checkout">CHECKOUT</button> </div>
 
@@ -341,17 +411,21 @@
             window.onload = function(){
                     let single_product_grid_html,formatted_price; let availableColor; let color_div;
 
-                    let product_chosen = localStorage.getItem("product_clicked")
+                    let remove_elm; let increase_quantity_elm; let  decrease_quantity_elm;
+
+                 // Get Product Selected from Local Storage
+                    let product_chosen = localStorage.getItem("product_clicked");
+
+                     // Get Cart Information from Local Storage
+                    let items_in_cart = localStorage.getItem("your_bag_elm")
+
+
 
                     document.title = product_chosen.toUpperCase();
 
                     const single_product_gird = document.getElementById("single_product_grid")
                   
-                    const cart_button = document.getElementById("cart_container");
-
-                    const sideMenu = document.getElementById("side_menu")
-
-                    const close_sidemenu =document.getElementById("close")
+                  
 
                     const homepage = document.getElementById("main_container")
 
@@ -404,11 +478,26 @@
                                         <button id="add_to_cart">ADD TO CART</button>   
                                     </div> ` 
 
+
+
+
+
+                    const add_to_cart_btn = document.getElementById("add_to_cart") ;
+
+                    add_to_cart_btn.addEventListener("click",add_to_cart);
+
+
+
                     })
 
 
 
 
+            //Show Side Menu on click of Cart 
+
+            const sideMenu = document.getElementById("side_menu")
+
+            const cart_button = document.getElementById("cart_container");
 
                     cart_button.onclick = function(){
 
@@ -424,6 +513,9 @@
                         
 
                     }
+            // Hide Side Menu on close
+
+            const close_sidemenu =document.getElementById("close")
 
                     close_sidemenu.onclick = function(){
 
@@ -437,7 +529,149 @@
                     }
 
 
+            // Populate Shopping cart with string from previous page
+            
+            
+            const your_bag_elm = document.getElementById("your_bag");
 
+            const total_elm = document.getElementById("total");
+
+            const update_cart_elm = document.getElementById("items_in_cart")
+
+            if(items_in_cart){
+
+                console.log("items in cart")
+                your_bag_elm.innerHTML =items_in_cart;
+
+                update_cart_elm.textContent = your_bag_elm.childElementCount;
+                total_elm.textContent = calculateTotal() ;
+
+            }
+
+            function add_to_cart(){
+
+
+
+                your_bag_elm.innerHTML += `   <div class="your_bag_container">
+                                    <img class="cart_image" src=${this.parentElement.previousElementSibling.firstElementChild.src}>
+                            
+                                    <div class="cart_details">
+                                        <h4 class="cart_product_name">${this.parentElement.children[0].textContent}</h4>
+                                        <h4 class="cart_product_price">${this.parentElement.children[2].textContent}</h4>
+                                        <button class="remove">remove</button>
+                                    </div>
+                                    <div class="quantity_container">
+                                        <button class="up_arrow"><i class="fa fa-angle-up"></i></button>
+                                        <span class="quantity">1</span>
+                                        <button class="down_arrow"><i class="fa fa-angle-down"></i></button>
+                                    </div>
+                                    </div>`
+
+
+                cart_button.click();
+
+
+            
+                update_cart_elm.textContent = your_bag_elm.childElementCount;
+
+               
+                // quantity = document.querySelectorAll(".quantity")  
+                
+                //console.log(items_in_cart)
+                total_elm.textContent = calculateTotal() ;
+
+                remove_elm = document.querySelectorAll(".remove");
+               remove_elm.forEach( elm=> elm.addEventListener("click",remove_item_from_cart))
+               increase_quantity_elm =  document.querySelectorAll(".up_arrow");
+
+            decrease_quantity_elm =  document.querySelectorAll(".down_arrow");
+
+            increase_quantity_elm.forEach(elm => elm.addEventListener("click",increaseQuantity));
+
+            decrease_quantity_elm.forEach(elm => elm.addEventListener("click",decreaseQuantity));
+
+
+
+
+            }
+            remove_elm = document.querySelectorAll(".remove");
+
+
+            remove_elm.forEach(elm=> elm.addEventListener("click",remove_item_from_cart))
+
+            increase_quantity_elm =  document.querySelectorAll(".up_arrow");
+
+            decrease_quantity_elm =  document.querySelectorAll(".down_arrow");
+
+            increase_quantity_elm.forEach(elm => elm.addEventListener("click",increaseQuantity));
+
+            decrease_quantity_elm.forEach(elm => elm.addEventListener("click",decreaseQuantity));
+
+
+
+            function calculateTotal(){
+                let total=0;
+            
+                items_in_cart = document.querySelectorAll(".your_bag_container");
+
+                    items_in_cart.forEach(function(elm,index){
+
+                        total += parseFloat((elm.querySelector(".cart_product_price").textContent).slice(1)).toFixed(2) * parseInt(elm.querySelector(".quantity").textContent)
+                        
+
+                    })
+
+                    return total.toFixed(2);
+
+            }
+
+            // To remove item is yoru shopping bag
+
+            function remove_item_from_cart(){
+            // console.log("remove")
+
+                this.parentElement.parentElement.remove();
+
+                console.log(  items_in_cart)
+
+                total_elm.textContent = calculateTotal() ;
+                
+                update_cart_elm.textContent = your_bag_elm.childElementCount;
+                
+            }
+
+            //Increase quantity in shopping cart 
+            function increaseQuantity(){
+            
+            this.nextElementSibling.textContent = parseInt( this.nextElementSibling.textContent) + 1;
+
+            total_elm.textContent = calculateTotal() ;
+                
+
+            }
+
+            //Decrease quantity in shopping cart 
+            function decreaseQuantity(){
+
+                this.previousElementSibling.textContent = parseInt( this.previousElementSibling.textContent) - 1;
+
+                if( parseInt(this.previousElementSibling.textContent) < 1){
+
+                    this.previousElementSibling.textContent = 1;
+                }
+
+                total_elm.textContent = calculateTotal() ;
+                
+            }
+
+
+
+             // Set Cart Information to local Storage when user moves to another page  
+            window.addEventListener('beforeunload', function(event) {
+                    
+                localStorage.setItem("your_bag_elm", your_bag_elm.innerHTML)
+            
+            });
 
             }
 
