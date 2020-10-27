@@ -33,7 +33,7 @@ window.onload = function(){
         
         return ` <div class="product">
            <div class="product_img_container"> 
-               <img class="image"  src=${url}>
+               <img class="home_image"  src=${url}>
                 <div class="quick_look icon hideIcon"><i class="fa fa-search"></i></div>
                 <div class="buy_now icon hideIcon"><i class="fa fa-shopping-cart"></i></div>
             </div>

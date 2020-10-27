@@ -8,14 +8,15 @@
     
         <title>SideBar JavaScript</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <!--   <link rel="stylesheet" href="index.css"> 
-       <script src="reviews.js"></script>  --> 
+        <link rel="stylesheet" href="index.css"> 
+       <!--  <script src="reviews.js"></script>  --> 
        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
        <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
         <script src="https://use.fontawesome.com/031e3862f6.js"></script>
 
         <style>
-          body{
+       /*  
+        body{
               background-color: #FFFFFF;
               padding: 0;
               margin: 0;
@@ -144,7 +145,7 @@
                   width:100%;
                   height: auto;
               }
-              .product_title{
+              .single_product_title{
                   color:#102A42;
                   letter-spacing: 2px;
                   font-family: 'Roboto', sans-serif;
@@ -159,7 +160,7 @@
                 letter-spacing: 2px;
 
               }
-              .price{
+              .single_product_price{
                 color:#102A42;
                 letter-spacing: 2px;
                 font-size: 20px;
@@ -192,10 +193,10 @@
                     letter-spacing: 1px;
                     width:70%;
                     line-height: 22px;
-                }
+                } */
 
         /* Side Menu Styling */
-                #side_menu{
+             /*   #side_menu{
              position: fixed;
             background-color: #F1F5F8;
             width:350px;
@@ -269,9 +270,9 @@
              background-color: lightsalmon;
            
 
-         }
+         } */
          /* Your Shopping Bag Styling */
-         #your_bag{
+       /*  #your_bag{
         padding: 5px;
         display: flex;
         flex-direction: column;
@@ -334,7 +335,8 @@
         }
         .quantity{
         align-self: center; 
-        }
+        }  
+        */
 
         </style>
         
@@ -377,11 +379,11 @@
 
         <div id="single_product_grid">
 
-          <!--  <div class="single_image_grid" ><img class="image" src="https://dl.airtable.com/.attachmentThumbnails/d86e13eec1b200e2b21282b99a9382be/6d92321b"></div>    
+          <!--  <div class="single_image_grid" ><img class="single_image" src="https://dl.airtable.com/.attachmentThumbnails/d86e13eec1b200e2b21282b99a9382be/6d92321b"></div>    
             <div class="product_desc_grid">
-                <h1 class="product_title">High-Back Bench</h1> 
+                <h1 class="single_product_title">High-Back Bench</h1> 
                 <h3 class="company">BY IKEA</h3>
-                <h3 class="price">$9.99</h3>
+                <h3 class="single_product_price">$9.99</h3>
                 <div class="color"> </div> <div class="color"> </div>
                 <div class="product_desc">Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge
 
@@ -453,11 +455,11 @@
 
                                 formatted_price.splice(formatted_price.length-2,0,".")
 
-                                return ` <div class="single_image_grid" ><img class="image" src=${url}></div>    
+                                return ` <div class="single_image_grid" ><img class="single_image" src=${url}></div>    
                                     <div class="product_desc_grid">
-                                        <h1 class="product_title">${product.fields.name.toUpperCase()}</h1> 
+                                        <h1 class="single_product_title">${product.fields.name.toUpperCase()}</h1> 
                                         <h3 class="company">BY ${company.toUpperCase()}</h3>
-                                        <h3 class="price">$ ${formatted_price.join("")}</h3>`
+                                        <h3 class="single_product_price">$ ${formatted_price.join("")}</h3>`
                                      
                                       
                         
