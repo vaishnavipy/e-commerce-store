@@ -545,10 +545,33 @@
                 console.log("items in cart")
                 your_bag_elm.innerHTML =items_in_cart;
 
-                update_cart_elm.textContent = your_bag_elm.childElementCount;
+            //Update Cart Quantity in the cart icon
+            update_cart_elm.textContent = totalItemsInCart();
+
                 total_elm.textContent = calculateTotal() ;
 
             }
+
+
+                //Calculat the total Number of items or Quantity in your shopping Cart
+                 function totalItemsInCart(){
+                let quantity_total=0;
+                
+                items_in_cart = document.querySelectorAll(".your_bag_container");
+
+                items_in_cart.forEach(function(eachItem,index){
+
+                    quantity_total += parseInt(eachItem.children[2].children[1].textContent)
+
+                })
+
+                return quantity_total;
+
+             
+                }
+ 
+
+
 
             function add_to_cart(){
 
@@ -574,12 +597,10 @@
 
 
             
-                update_cart_elm.textContent = your_bag_elm.childElementCount;
-
+               //Update Cart Quantity in the cart icon
+            update_cart_elm.textContent = totalItemsInCart();
                
-                // quantity = document.querySelectorAll(".quantity")  
-                
-                //console.log(items_in_cart)
+               
                 total_elm.textContent = calculateTotal() ;
 
                 remove_elm = document.querySelectorAll(".remove");
@@ -638,7 +659,8 @@
 
                 total_elm.textContent = calculateTotal() ;
                 
-                update_cart_elm.textContent = your_bag_elm.childElementCount;
+                //Update Cart Quantity in the cart icon
+            update_cart_elm.textContent = totalItemsInCart();
                 
             }
 
@@ -648,6 +670,9 @@
             this.nextElementSibling.textContent = parseInt( this.nextElementSibling.textContent) + 1;
 
             total_elm.textContent = calculateTotal() ;
+
+            //Update Cart Quantity in the cart icon
+            update_cart_elm.textContent = totalItemsInCart();
                 
 
             }
@@ -663,6 +688,9 @@
                 }
 
                 total_elm.textContent = calculateTotal() ;
+
+                //Update Cart Quantity in the cart icon
+            update_cart_elm.textContent = totalItemsInCart();
                 
             }
 

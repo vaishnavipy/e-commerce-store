@@ -9,7 +9,7 @@
         <title>About | Comfy Store JavaScript</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="index.css">    
-       <script src="index.js"></script> 
+     <!--  <script src="index.js"></script> -->
        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
        <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
         <script src="https://use.fontawesome.com/031e3862f6.js"></script>
@@ -93,6 +93,181 @@
         </div>
         </div> 
       </div>
+
+      <script>
+          window.onload = function(){
+              // Get Cart Information from Local Storage
+              let items_in_cart = localStorage.getItem("your_bag_elm");
+
+               // Show Side Menu, when click on cart
+
+        const cart_button = document.getElementById("cart_container");
+
+        const sideMenu = document.getElementById("side_menu")
+
+        const close_sidemenu =document.getElementById("close")
+
+        const homepage = document.getElementById("homepage")
+
+        cart_button.onclick = function(){
+
+        
+
+            sideMenu.classList.remove("hide_sidemenu")
+
+            sideMenu.classList.add("show_sidemenu");
+
+            homepage.classList.add("homepage")
+
+
+            
+
+        }
+
+        close_sidemenu.onclick = function(){
+
+            sideMenu.classList.remove("show_sidemenu")
+
+            sideMenu.classList.add("hide_sidemenu")
+
+            homepage.classList.remove("homepage")
+
+
+        }
+
+       
+        //Add to Cart
+
+        const your_bag_elm = document.getElementById("your_bag");
+
+        const total_elm = document.getElementById("total");
+
+        const update_cart_elm = document.getElementById("items_in_cart")
+
+        if(items_in_cart){
+
+            console.log("items in cart")
+            your_bag_elm.innerHTML =items_in_cart;
+
+            //Update Cart Quantity in the cart icon
+            update_cart_elm.textContent = totalItemsInCart();
+
+            total_elm.textContent = calculateTotal() ;
+
+        }
+
+         //Calculat the total Number of items or Quantity in your shopping Cart
+         function totalItemsInCart(){
+                let quantity_total=0;
+                
+                items_in_cart = document.querySelectorAll(".your_bag_container");
+
+                items_in_cart.forEach(function(eachItem,index){
+
+                    quantity_total += parseInt(eachItem.children[2].children[1].textContent)
+
+                })
+
+                return quantity_total;
+
+             
+            }
+
+
+            // Remove Items in Cart
+            remove_elm = document.querySelectorAll(".remove");
+
+
+            remove_elm.forEach(elm=> elm.addEventListener("click",remove_item_from_cart))
+
+            increase_quantity_elm =  document.querySelectorAll(".up_arrow");
+
+            decrease_quantity_elm =  document.querySelectorAll(".down_arrow");
+
+            increase_quantity_elm.forEach(elm => elm.addEventListener("click",increaseQuantity));
+
+            decrease_quantity_elm.forEach(elm => elm.addEventListener("click",decreaseQuantity));
+
+
+            // Function to Calculate Total in cArt
+            function calculateTotal(){
+                let total=0;
+            
+                items_in_cart = document.querySelectorAll(".your_bag_container");
+
+                    items_in_cart.forEach(function(elm,index){
+
+                        total += parseFloat((elm.querySelector(".cart_product_price").textContent).slice(1)).toFixed(2) * parseInt(elm.querySelector(".quantity").textContent)
+                        
+
+                    })
+                    console.log(total.toFixed(2))
+
+                    return total.toFixed(2);
+
+            }
+
+            // To remove item is yoru shopping bag
+
+            function remove_item_from_cart(){
+            // console.log("remove")
+
+                this.parentElement.parentElement.remove();
+
+                console.log(  items_in_cart)
+
+                total_elm.textContent = calculateTotal() ;
+
+                //Update Cart Quantity in the cart icon
+                update_cart_elm.textContent = totalItemsInCart();
+                
+            }
+
+            //Increase quantity in shopping cart 
+            function increaseQuantity(){
+            
+            this.nextElementSibling.textContent = parseInt( this.nextElementSibling.textContent) + 1;
+
+            total_elm.textContent = calculateTotal() ;
+
+             //Update Cart Quantity in the cart icon
+             update_cart_elm.textContent = totalItemsInCart();
+                
+
+            }
+
+            //Decrease quantity in shopping cart 
+            function decreaseQuantity(){
+
+                this.previousElementSibling.textContent = parseInt( this.previousElementSibling.textContent) - 1;
+
+                if( parseInt(this.previousElementSibling.textContent) < 1){
+
+                    this.previousElementSibling.textContent = 1;
+                }
+
+                total_elm.textContent = calculateTotal() ;
+
+                 //Update Cart Quantity in the cart icon
+                 update_cart_elm.textContent = totalItemsInCart();
+                
+            }
+
+            // Set Cart Information to local Storage when user moves to another page
+                 window.addEventListener('beforeunload', function(event) {
+                    
+                    localStorage.setItem("your_bag_elm", your_bag_elm.innerHTML)
+                
+                });
+
+
+           
+            
+          }
+
+
+
+      </script>
    
     </body>
 
