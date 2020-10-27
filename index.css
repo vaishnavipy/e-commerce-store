@@ -57,10 +57,10 @@ body{
 
 
 .links{
-  
+    color:white;
     text-decoration: none;
     cursor: pointer;
-    color:white;
+    
     font-size: 22px;
     padding: 10px;
     font-family: 'Roboto', sans-serif;
@@ -164,6 +164,7 @@ body{
 }
 #homepage{
     position: relative;
+    
 }
 
 .homepage::after{
@@ -427,3 +428,69 @@ background-color: #F1F5F8;
 .quantity{
 align-self: center; 
 }
+/*  Page title for ABout Page */
+.page_title{
+    background-color: #F1F5F8;
+    width:100vw;
+    color:#617D98;
+    padding: 50px 0px;
+   
+}
+.page_title h1{
+    width:80vw;
+    margin: auto;
+    font-family: 'Roboto', sans-serif;
+      letter-spacing: 2px;
+      text-align: left;
+    }
+
+
+/* About Page NavBar Links */
+.about_links{
+    color:#324D67;
+    text-decoration: none;
+    cursor: pointer;
+    
+    font-size: 22px;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 2px;
+    transition: color 1s;
+}
+
+.about_links:hover{
+    color:#BA5D2C;
+}
+
+
+/* About Page Content Styling */
+
+#about_content{
+
+    padding-top: 50px;
+    width: 50vw;
+    margin: auto;
+
+}
+
+#about_content h1{
+    text-align: center;
+    color:#102A42;
+    font-size: 35px;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+#about_content h4{
+    color:#617D98;
+    letter-spacing: 2px;
+    font-family: 'Roboto', sans-serif;
+    line-height: 30px;
+    font-weight: 300;
+
+}
+/*  This Main container in About page is set to 100vh , so that the black backgrounf covers the whole page when teh side menu opens*/
+#main_container{
+    height: 100vh;
+}
+
