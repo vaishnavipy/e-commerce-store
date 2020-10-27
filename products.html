@@ -429,6 +429,10 @@
 
                 </div>
 
+                <div id="hamburger_menu">
+                    <i class="fa fa-bars"></i>  
+                </div>
+
                  <div id="logo"> <img  src="https://vanilla-js-store.netlify.app/images/logo-black.svg"></div>
 
                 <div id="cart_container">
@@ -507,6 +511,19 @@
             <button id="checkout">CHECKOUT</button> </div>
 
         </div>
+
+        <div id="modal">
+
+            <div id="modal_close"><i class="fa fa-times"></i></div>
+           <a href="./index.html" class="modal_menus"><span class="modal_icon"><i class="fa fa-home"></i></span>Home</a> 
+
+           <a href="./products.html" class="modal_menus" ><span class="modal_icon"><i class="fa fa-safari"></i></span>Products</a> 
+
+           <a href="./about.html" class="modal_menus"><span class="modal_icon"><i class="fa fa-book"></i></span>About</a> 
+
+
+        </div>
+
         
        
         </div>
@@ -521,7 +538,7 @@
                 let items_in_cart = localStorage.getItem("your_bag_elm"); 
  
 
-                let product_clicked; let company_filter ="All";  let user_search ="" ; let user_search_length; let slider_value;
+                let product_clicked; let company_filter ="All";  let user_search ="" ; let user_search_length; let slider_value="";
 
                 const all_products_grid = document.getElementById("all_products_grid");
 
@@ -530,6 +547,8 @@
                 const search_elm = document.getElementById("search");
 
                 search_elm.addEventListener("input",onUserSearch);
+
+                const main_container = document.getElementById("main_container")
 
                 //Filter out based on company, fetch them from API and then populate DOM
                 function fetchProducts(){
@@ -544,16 +563,34 @@
 
                         product_section  =  data.filter(function(elm,index){
 
-                                    const {company,name} = elm.fields;
+                                    const {company,price,name} = elm.fields;
+
+                                    // User Search Input Check 
 
                                     if(user_search != "" ){
-                                    console.log("user_search filter")
+                                   
                                     user_search_length = user_search.length;
 
                                     return name.slice(0,user_search_length) == user_search
                                                 
                                     }
+
+                                    // Slider Input Check 
+
+                                    if(slider_value != "" ){
+                                    console.log(slider_value)
+
+                                    formatted_price = String(price).split("");
+
+                                    formatted_price.splice(formatted_price.length-2,0,".");
+
+                                    return parseInt(formatted_price.join("")) <  parseInt(slider_value) ;
+                                                
+                                    }
+
                                         
+
+                                    // Company Filter Check 
 
                                    if(company_filter == "All"){
 
@@ -571,6 +608,7 @@
                             formatted_price = String(price).split("");
 
                             formatted_price.splice(formatted_price.length-2,0,".");
+                           
 
                             return `  <div class="product">
                                 <div class="product_img_container">  
@@ -591,7 +629,7 @@
 
                         all_products_grid.innerHTML = product_section;
 
-                        search_elm.value="";
+                       
                         
 
                         product_img_container = document.querySelectorAll(".product_img_container");
@@ -613,6 +651,8 @@
 
                 })
 
+               
+
             }
             
                  fetchProducts();
@@ -624,9 +664,50 @@
                 function fetchFilteredProducts(){
 
                     company_filter = this.textContent;
+
+                     //Make User Search & SliderValue empty, so that it skips boht the IF statements and filters directly based on Company Filter
+                    user_search="";
+
+                    slider_value =""
+
                      fetchProducts();
 
                 }
+
+                //When user searches for a product
+
+                function onUserSearch(){
+
+                    user_search = this.value;
+                   // No need to make anything empty here as, this is the first IF Statement in Fetch Products Function
+                    fetchProducts();
+                    }
+
+                    //When price changes on slider
+
+                    const slider = document.getElementById("slider")
+
+                    slider.addEventListener("input",sliderChange);
+
+                    let slider_value_elm = document.getElementById("slider_value");
+
+
+
+                    function sliderChange(){
+
+                    slider_value_elm.innerHTML = this.value;
+                    slider_value = this.value;
+
+                    //Make User Search empty, so that it skips userSearch if statement and filters directly based on sliderValue
+                    user_search="";
+                    
+                    fetchProducts();
+
+
+                    }
+
+
+
 
                 // When a product is clicked On , go to product detail page
                 function goToProductPage(){
@@ -682,37 +763,7 @@
 
                         }
 
-                //When user searches for a product
-
-                function onUserSearch(){
-
-                    user_search = this.value;
-                    console.log(user_search)
-                    fetchProducts();
-                   
-
-
-                }
-
-                //When price changes on slider
-
-                const slider = document.getElementById("slider")
-
-                slider.addEventListener("input",sliderChange);
-
-                let slider_value_elm = document.getElementById("slider_value");
-
-
-
-                function sliderChange(){
-
-
-                    slider_value_elm.innerHTML = this.value;
-                    slider_value = this.value;
-
-
-
-                }
+                
 
                 
                 
@@ -917,6 +968,68 @@
             update_cart_elm.textContent = totalItemsInCart();
                
            }
+
+              // On window Resize hide or show Navbar
+              const hamburger_menu = document.getElementById("hamburger_menu");
+
+                const navbar = document.getElementById("navbar");
+
+                window.onresize = function(){
+
+                    showHamburgerMenu();
+
+
+                }
+
+
+                function showHamburgerMenu(){
+
+                    if(window.outerWidth < 800){
+
+                        hamburger_menu.style.visibility = "visible";
+
+                        navbar.style.visibility ="hidden";
+
+                    }
+                    else{
+
+                        hamburger_menu.style.visibility = "hidden";
+
+                        navbar.style.visibility ="visible";
+
+
+                    }
+
+                }
+
+                // On window load, check window size to show or hide hamburger Menu
+                showHamburgerMenu();
+
+
+
+                // Show Modal, when hamburger icon is clicked
+
+                hamburger_menu.addEventListener("click",showModal);
+                const modal = document.getElementById("modal");
+
+                function showModal(){
+
+                modal.style.visibility ="visible";
+                homepage.classList.add("homepage")
+
+                }
+
+                // Close Modal, when user clicks on close button
+                const modal_close = document.getElementById("modal_close");
+
+                modal_close.onclick = function(){
+
+
+                modal.style.visibility ="hidden";
+                homepage.classList.remove("homepage")
+
+                }
+
 
              // Set Cart Information to local Storage when user moves to another page
              window.addEventListener('beforeunload', function(event) {

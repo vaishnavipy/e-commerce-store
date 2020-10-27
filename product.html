@@ -360,6 +360,10 @@
 
                 </div>
 
+                <div id="hamburger_menu">
+                    <i class="fa fa-bars"></i>  
+                </div>
+
                  <div id="logo"> <img  src="https://vanilla-js-store.netlify.app/images/logo-black.svg"></div>
 
                 <div id="cart_container">
@@ -405,6 +409,19 @@
             <button id="checkout">CHECKOUT</button> </div>
 
         </div>
+
+        <div id="modal">
+
+            <div id="modal_close"><i class="fa fa-times"></i></div>
+           <a href="./index.html" class="modal_menus"><span class="modal_icon"><i class="fa fa-home"></i></span>Home</a> 
+
+           <a href="./products.html" class="modal_menus" ><span class="modal_icon"><i class="fa fa-safari"></i></span>Products</a> 
+
+           <a href="./about.html" class="modal_menus"><span class="modal_icon"><i class="fa fa-book"></i></span>About</a> 
+
+
+        </div>
+
 
       
 
@@ -692,6 +709,68 @@
                 //Update Cart Quantity in the cart icon
             update_cart_elm.textContent = totalItemsInCart();
                 
+            }
+
+
+              // On window Resize hide or show Navbar
+            const hamburger_menu = document.getElementById("hamburger_menu");
+
+                const navbar = document.getElementById("navbar");
+
+                window.onresize = function(){
+
+                    showHamburgerMenu();
+
+
+                }
+
+
+                function showHamburgerMenu(){
+
+                    if(window.outerWidth < 800){
+
+                        hamburger_menu.style.visibility = "visible";
+
+                        navbar.style.visibility ="hidden";
+
+                    }
+                    else{
+
+                        hamburger_menu.style.visibility = "hidden";
+
+                        navbar.style.visibility ="visible";
+
+
+                    }
+
+                }
+
+            // On window load, check window size to show or hide hamburger Menu
+            showHamburgerMenu();
+
+
+
+            // Show Modal, when hamburger icon is clicked
+
+            hamburger_menu.addEventListener("click",showModal);
+            const modal = document.getElementById("modal");
+
+            function showModal(){
+
+                modal.style.visibility ="visible";
+                homepage.classList.add("main_container")
+
+            }
+
+            // Close Modal, when user clicks on close button
+            const modal_close = document.getElementById("modal_close");
+
+            modal_close.onclick = function(){
+
+
+                modal.style.visibility ="hidden";
+                homepage.classList.remove("main_container")
+
             }
 
 

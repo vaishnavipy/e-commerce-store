@@ -165,7 +165,7 @@ window.onload = function(){
                 your_bag_elm.innerHTML =items_in_cart_storage;
 
                 update_cart_elm.textContent = totalItemsInCart();
-                
+
                 total_elm.textContent = calculateTotal() ;
 
             }
@@ -330,6 +330,80 @@ window.onload = function(){
         
             }
 
+            // When user Clicks on Shop Now on Home Page
+            const shopNowBtn = document.getElementById("shop");
+
+            shopNowBtn.onclick = function(){
+
+                location.assign("./products.html")
+
+            }
+
+
+            // On window Resize hide or show Navbar
+            const hamburger_menu = document.getElementById("hamburger_menu");
+
+            const navbar = document.getElementById("navbar");
+
+            window.onresize = function(){
+
+                showHamburgerMenu();
+        
+        
+            }
+
+
+            function showHamburgerMenu(){
+
+                if(window.outerWidth < 800){
+
+                    hamburger_menu.style.visibility = "visible";
+    
+                    navbar.style.visibility ="hidden";
+    
+                }
+                else{
+    
+                    hamburger_menu.style.visibility = "hidden";
+    
+                    navbar.style.visibility ="visible";
+    
+    
+                }
+
+            }
+            
+             // On window load, check window size to show or hide hamburger Menu
+             showHamburgerMenu();
+
+
+
+            // Show Modal, when hamburger icon is clicked
+
+            hamburger_menu.addEventListener("click",showModal);
+            const modal = document.getElementById("modal");
+
+            function showModal(){
+
+                modal.style.visibility ="visible";
+                homepage.classList.add("homepage")
+
+            }
+
+            // Close Modal, when user clicks on close button
+            const modal_close = document.getElementById("modal_close");
+
+            modal_close.onclick = function(){
+
+
+                modal.style.visibility ="hidden";
+                homepage.classList.remove("homepage")
+
+            }
+
+            
+
+           
             // Set Cart Information to local Storage when user moves to another page
             window.addEventListener('beforeunload', function(event) {
                             
