@@ -11,7 +11,7 @@ window.onload = function(){
             const featured_grid = document.getElementById("featured_grid");
             const all_products_btn = document.getElementById("all_products_btn");
 
-            fetch("https://course-api.netlify.app/api/javascript-store-products")
+            fetch("https://course-api.com/javascript-store-products")
             .then(response => response.json())
             .then(data => {
 
